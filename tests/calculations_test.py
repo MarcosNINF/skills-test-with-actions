@@ -68,3 +68,12 @@ def test_get_nth_fibonacci_ten():
 
      # Assert
      assert result == 55
+
+def test_area_of_circle_positive_radius():
+    # π * r^2 con r=2 -> 12.566370...
+    from src.calculations import area_of_circle
+    assert round(area_of_circle(2), 5) == 12.56637
+
+def test_get_nth_fibonacci_zero():
+    from src.calculations import get_nth_fibonacci
+    assert get_nth_fibonacci(0) == 0
