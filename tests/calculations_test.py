@@ -1,70 +1,52 @@
-# System Modules
+# tests/calculations_test.py
+
 import sys
 import os
 
-# Installed Modules
-import pytest
-
-# Project Modules
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../src')))
-from calculations import area_of_circle, get_nth_fibonacci   # noqa: E402
+# Asegura que podamos importar desde src/
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../src")))
+from calculations import area_of_circle, get_nth_fibonacci  # noqa: E402
 
 
-def test_area_of_circle_positive_radius():
-    """Test with a positive radius."""
-    # Arrange
-    radius = 1
-
-    # Act
-    result = area_of_circle(radius)
-
-    # Assert
+def test_area_of_circle_positive_radius_r1():
+    """π * r^2 con r=1 -> ~3.14159"""
+    result = area_of_circle(1)
     assert abs(result - 3.14159) < 1e-5
 
 
+def test_area_of_circle_positive_radius_r2():
+    """π * r^2 con r=2 -> 12.56637"""
+    result = area_of_circle(2)
+    assert round(result, 5) == 12.56637
+
+
 def test_area_of_circle_zero_radius():
-    """Test with a radius of zero."""
-    # Arrange
-    radius = 0
-
-    # Act
-    result = area_of_circle(radius)
-
-    # Assert
-    assert result == 0
+    """r = 0"""
+    assert area_of_circle(0) == 0
 
 
 def test_get_nth_fibonacci_zero():
-    """Test with n=0."""
-    # Arrange
-    n = 0
-
-    # Act
-    result = get_nth_fibonacci(n)
-
-    # Assert
-    assert result == 0
+    """n = 0"""
+    assert get_nth_fibonacci(0) == 0
 
 
 def test_get_nth_fibonacci_one():
-    """Test with n=1."""
-    # Arrange
-    n = 1
-
-    # Act
-    result = get_nth_fibonacci(n)
-
-    # Assert
-    assert result == 1
+    """n = 1"""
+    assert get_nth_fibonacci(1) == 1
 
 
-# def test_get_nth_fibonacci_ten():
-#     """Test with n=10."""
-#     # Arrange
-#     n = 10
+def test_get_nth_fibonacci_ten():
+    """n = 10 -> 55"""
+    assert get_nth_fibonacci(10) == 55
 
-#     # Act
-#     result = get_nth_fibonacci(n)
+def test_area_of_circle_negative_radius_raises():
+    from calculations import area_of_circle
+    import pytest
+    with pytest.raises(ValueError):
+        area_of_circle(-1)
 
-#     # Assert
-#     assert result == 89
+def test_get_nth_fibonacci_negative_raises():
+    from calculations import get_nth_fibonacci
+    import pytest
+    with pytest.raises(ValueError):
+        get_nth_fibonacci(-5)
