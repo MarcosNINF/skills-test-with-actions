@@ -38,3 +38,15 @@ def test_get_nth_fibonacci_one():
 def test_get_nth_fibonacci_ten():
     """n = 10 -> 55"""
     assert get_nth_fibonacci(10) == 55
+
+def test_area_of_circle_negative_radius_raises():
+    from calculations import area_of_circle
+    import pytest
+    with pytest.raises(ValueError):
+        area_of_circle(-1)
+
+def test_get_nth_fibonacci_negative_raises():
+    from calculations import get_nth_fibonacci
+    import pytest
+    with pytest.raises(ValueError):
+        get_nth_fibonacci(-5)
